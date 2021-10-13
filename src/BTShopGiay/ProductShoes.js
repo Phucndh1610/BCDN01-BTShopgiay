@@ -25,7 +25,9 @@ export default class ProductShoes extends Component {
                         <span className="item_price">{sp.price}$</span>
                     </div>
                     <div className="snipcart-details top_brand_home_details item_add single-item  button2">
-                        <button className="btn style-btn" data-toggle="modal" data-target="#exampleModal1">Add to cart</button>
+                        <button className="btn style-btn" data-toggle="modal" data-target="#exampleModal1" onClick={() => {
+                            themGioHang(sp)
+                        }}>Add to cart</button>
                     </div>
                 </div>
             </div>

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 export default class ModalXemChiTiet extends Component {
     render() {
-        let {viewShoes} = this.props;
+        let {viewShoes,themGioHang} = this.props;
         return (
             <div className="modal fade" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-lg">
@@ -55,7 +55,9 @@ export default class ModalXemChiTiet extends Component {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Add to cart</button>
+                            <button type="button" className="btn btn-primary" data-dismiss="modal" aria-label="Close"  data-toggle="modal" data-target="#exampleModal1" onClick={() => {
+                                themGioHang(viewShoes)
+                            }}>Add to cart</button>
                         </div>
                     </div>
                 </div>

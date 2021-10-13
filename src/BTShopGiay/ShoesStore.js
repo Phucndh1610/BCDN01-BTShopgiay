@@ -127,7 +127,17 @@ export default class ShoesStore extends Component {
         }
     ]
     state = {
-        shoesDetail: []
+        shoesDetail:{
+            "id": 1,
+            "name": "Adidas Prophere",
+            "alias": "adidas-prophere",
+            "price": 350,
+            "description": "The adidas Primeknit upper wraps the foot with a supportive fit that enhances movement.\r\n\r\n",
+            "shortDescription": "The midsole contains 20% more Boost for an amplified Boost feeling.\r\n\r\n",
+            "quantity": 995,
+            "image": "http://svcy3.myclass.vn/images/adidas-prophere.png"
+        },
+        cart:[]
     }
     // hàm xem chi tiết sản phẩm
     xemChiTiet = (shoes) => {
@@ -135,70 +145,70 @@ export default class ShoesStore extends Component {
             shoesDetail: shoes
         })
     }
-    // // giỏ hàng
-    // themGioHang = (spAdded) => {
-    //     // setState
-    //     // spead operater   
-    //     // thêm soLuong vào cho đối tượng sp được click
-    //     let spGioHang = { ...spAdded, "soLuong": 1 }
-    //     // copy mảng giỏ hàng củ và mảng mới 
-    //     let gioHangCapNhat = [...this.state.shoesDetail];
-    //     // tìm sản phẩm được click có tồn tại trong mảng giỏ hàng chưa 
-    //     // find():giá trị của phần tử, findIndex():trả về vị trí(index) của phần tử
-    //     let spTK = gioHangCapNhat.find((sp) => {
-    //         return sp.id === spGioHang.id;
-    //     });
-    //     // console.log(spTK);
-    //     if (spTK) {
-    //         // tìm thấy
-    //         // tăng số lượng 
-    //         spTK.soLuong += 1;
-    //     } else {
-    //         // chưa có trong giỏ hàng
-    //         // thêm sp mới cho giỏ hàng
-    //         gioHangCapNhat.push(spGioHang);
-    //     }
+    // giỏ hàng
+    themGioHang = (spAdded) => {
+        // setState
+        // spead operater   
+        // thêm soLuong vào cho đối tượng sp được click
+        let spGioHang = { ...spAdded, "soLuong": 1 }
+        // copy mảng giỏ hàng củ và mảng mới 
+        let gioHangCapNhat = [...this.state.cart];
+        // tìm sản phẩm được click có tồn tại trong mảng giỏ hàng chưa 
+        // find():giá trị của phần tử, findIndex():trả về vị trí(index) của phần tử
+        let spTK = gioHangCapNhat.find((sp) => {
+            return sp.id === spGioHang.id;
+        });
+        // console.log(spTK);
+        if (spTK) {
+            // tìm thấy
+            // tăng số lượng 
+            spTK.soLuong += 1;
+        } else {
+            // chưa có trong giỏ hàng
+            // thêm sp mới cho giỏ hàng
+            gioHangCapNhat.push(spGioHang);
+        }
 
-    //     this.setState({
-    //         shoesDetail: gioHangCapNhat
-    //     })
-    // }
-    // // xóa giỏ hàng
-    // xoaGioHang = (spDeleted) => {
-    //     let { shoesDetail } = this.state;
-    //     // tìm vị trí của sản phẩm cần xóa trong mảng giỏ hàng
-    //     let index = shoesDetail.findIndex((sp) => {
-    //         return sp.id === spDeleted.id;
-    //     });
-    //     if (index !== -1) {
-    //         // tìm thấy
-    //         // xóa sản phẩm khỏi giỏ hàng
-    //         shoesDetail.splice(index, 1);
-    //     }
-    //     this.setState({
-    //         shoesDetail: shoesDetail
-    //     })
-    // }
-    // // tăng giảm sản phẩm
-    // tangGiamSL = (maSPSL, soLuong) => {
-    //     // console.log(maSPSL);
-    //     let { shoesDetail } = this.state;
-    //     let spTK = shoesDetail.find((sp) => {
-    //         return maSPSL === sp.id;
-    //     });
-    //     if (spTK) {
-    //         spTK.soLuong += soLuong
-    //         if (spTK.soLuong < 1) {
+        this.setState({
+            cart: gioHangCapNhat
+        })
+    }
+    // xóa giỏ hàng
+    xoaGioHang = (spDeleted) => {
+        let { cart } = this.state;
+        // tìm vị trí của sản phẩm cần xóa trong mảng giỏ hàng
+        let index = cart.findIndex((sp) => {
+            return sp.id === spDeleted.id;
+        });
+        if (index !== -1) {
+            // tìm thấy
+            // xóa sản phẩm khỏi giỏ hàng
+            cart.splice(index, 1);
+        }
+        this.setState({
+            cart: cart
+        })
+    }
+    // tăng giảm sản phẩm
+    tangGiamSL = (maSPSL, soLuong) => {
+        // console.log(maSPSL);
+        let { cart } = this.state;
+        let spTK = cart.find((sp) => {
+            return maSPSL === sp.id;
+        });
+        if (spTK) {
+            spTK.soLuong += soLuong
+            if (spTK.soLuong < 1) {
 
-    //             // alert("số lượng không hợp lệ");
-    //             spTK.soLuong -= soLuong;
-    //         }
-    //     }
+                // alert("số lượng không hợp lệ");
+                spTK.soLuong -= soLuong;
+            }
+        }
 
-    //     this.setState({
-    //         shoesDetail: shoesDetail
-    //     })
-    // }
+        this.setState({
+            cart: cart
+        })
+    }
 
     render() {
         return (
@@ -210,11 +220,11 @@ export default class ShoesStore extends Component {
                 </div>
                 <div>
                     {/* item */}
-                    <ProductList arrShoes={this.arrShoes} xemChiTiet={this.xemChiTiet} />
+                    <ProductList arrShoes={this.arrShoes} xemChiTiet={this.xemChiTiet} themGioHang={this.themGioHang}/>
                     {/* Xem chi tiết */}
-                    <ModalXemChiTiet viewShoes={this.state.shoesDetail} />
+                    <ModalXemChiTiet viewShoes={this.state.shoesDetail} themGioHang={this.themGioHang} />
                     {/* giỏ hàng */}
-                    {/* <ModalGioHang xoaGioHang={this.xoaGioHang} tangGiamSL={this.tangGiamSL} gioHang={this.state.shoesDetail} /> */}
+                    <ModalGioHang  gioHang={this.state.cart} xoaGioHang={this.xoaGioHang} tangGiamSL={this.tangGiamSL}/>
                 </div>
             </div>
         )
